@@ -9,7 +9,7 @@ async function login(emailId) {
   const ress1 = await Auth(emailId, "D2D");
   return ress1.OTP;
 }
-router.get("/loginSendOTP", async (req, res) => {
+router.post("/loginSendOTP", async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
