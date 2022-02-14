@@ -16,7 +16,7 @@ router.post("/registerDealer", async (req, res) => {
         quantity: req.body.quantity,
         city: req.body.city,
         state: req.body.state,
-        isDealer: req.body.isDealer,
+        userType: req.body.userType,
       password: CryptoJS.AES.encrypt(
         req.body.password,
         process.env.SECRET_KEY

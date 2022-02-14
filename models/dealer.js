@@ -11,7 +11,7 @@ const DealerSchema = new mongoose.Schema(
     city: { type: String, required: true,  },
     password: { type: String, required: true },
     state: { type: String, defaut: "", required: true },
-    isDealer: { type: Boolean, default: false, required: true },
+    userType: { type: String, default: "", required: true },
    
   },
   { timestamps: true }

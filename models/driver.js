@@ -17,7 +17,7 @@ const DriverSchema = new mongoose.Schema(
     toCity2: { type: String, defaut: "", required: true },
     fromCity3: { type: String, defaut: "", required: true },
     toCity3: { type: String, defaut: "", required: true },
-    isDriver: { type: Boolean, default: false, required: true },
+    userType: { type: String, default: "", required: true },
   },
   { timestamps: true }
 );

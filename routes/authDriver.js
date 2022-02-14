@@ -22,7 +22,7 @@ router.post("/registerDriver", async (req, res) => {
         toCity2: req.body.toCity2,
         fromCity3: req.body.fromCity3,
         toCity3: req.body.toCity3,
-        isDriver: req.body.isDriver,
+        userType: req.body.userType,
 
       password: CryptoJS.AES.encrypt(
         req.body.password,
