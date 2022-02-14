@@ -16,7 +16,6 @@ router.post("/registerDealer", async (req, res) => {
         city: req.body.city,
         state: req.body.state,
         isDealer: req.body.isDealer,
-
       password: CryptoJS.AES.encrypt(
         req.body.password,
         process.env.SECRET_KEY
@@ -34,13 +33,13 @@ router.post("/registerDealer", async (req, res) => {
 router.post("/loginDealer", async (req, res) => {
     try {
       const user = await User.findOne({ email: req.body.email });
-      !user && res.status(401).json("Wrong password or username!");
+      !user && res.status(401).json("Wrong password or email!");
   
       const bytes = CryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
       const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
   
       originalPassword !== req.body.password &&
-        res.status(401).json("Wrong password or username!");
+        res.status(401).json("Wrong password or email!");
   
       const accessToken = jwt.sign(
         { id: user._id },
@@ -51,6 +50,17 @@ router.post("/loginDealer", async (req, res) => {
       const { password, ...info } = user._doc;
   
       res.status(200).json({ ...info, accessToken });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+  
+  router.get("/:city", async (req, res) => {
+    try {
+      const user = await User.findOne({
+        members: { $all: [req.params.city ] },
+      });
+      res.status(200).json(user)
     } catch (err) {
       res.status(500).json(err);
     }

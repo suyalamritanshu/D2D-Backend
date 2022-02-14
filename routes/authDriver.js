@@ -15,8 +15,12 @@ router.post("/registerDriver", async (req, res) => {
         truckumber: req.body.truckumber,
         transporter: req.body.transporter,
         experience: req.body.experience,
-        fromCity: req.body.fromCity,
-        toCity: req.body.toCity,
+        fromCity1: req.body.fromCity1,
+        toCity1: req.body.toCity1,
+        fromCity2: req.body.fromCity2,
+        toCity2: req.body.toCity2,
+        fromCity3: req.body.fromCity3,
+        toCity3: req.body.toCity3,
         isDriver: req.body.isDriver,
 
       password: CryptoJS.AES.encrypt(
@@ -53,6 +57,18 @@ router.post("/loginDriver", async (req, res) => {
       const { password, ...info } = user._doc;
   
       res.status(200).json({ ...info, accessToken });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+
+
+  router.get("/:fromCity1/:fromCity2/:fromCity3", async (req, res) => {
+    try {
+      const user = await User.findOne({
+        members: { $all: [req.params.fromCity1, req.params.fromCity2, req.params.fromCity3 ] },
+      });
+      res.status(200).json(user)
     } catch (err) {
       res.status(500).json(err);
     }
