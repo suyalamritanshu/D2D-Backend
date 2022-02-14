@@ -1,21 +1,23 @@
 ## Backend for the D2D Android App
 
-#### Driver Signup - api/authDriver/registerDriver 
-#### Driver Login - api/authDriver/loginDriver 
-#### Dealer Signup - api/authDriver/registerDealer 
-#### Dealer Login - api/authDriver/registerDealer
-#### Send OTP - api/authDriver/loginSendOTP
-#### Verify OTP - api/authDriver/postOTP
+## Routes Involved
+
+1) Driver Signup - api/authDriver/registerDriver 
+2) Driver Login - api/authDriver/loginDriver 
+3) Dealer Signup - api/authDriver/registerDealer 
+4) Dealer Login - api/authDriver/registerDealer
+5) Send OTP - api/authDriver/loginSendOTP
+6) Verify OTP - api/authDriver/postOTP
 
 
-#### Get data of the drivers that are available for a particular route - 
+7) Get data of the drivers that are available for a particular route - 
 
-#### /api/authDriver?fromCity1=Moradabad&fromCity2=Kanpur&fromCity3=Solan
+ /api/authDriver?fromCity1=Moradabad&fromCity2=Kanpur&fromCity3=Solan
 
-#### Get data of the dealers that are available for a particular route (state and city) - 
-#### /api/authDealer?state=UP&city=Kanpur
+8) Get data of the dealers that are available for a particular route (state and city) - 
+ /api/authDealer?state=UP&city=Kanpur
 
-#### Get all drivers - /api/authDriver/allDrivers
+9) Get all drivers - /api/authDriver/allDrivers
 
 
 ### Implementation - 
