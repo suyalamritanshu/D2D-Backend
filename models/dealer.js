@@ -4,6 +4,7 @@ const DealerSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, unique: true },
     nature: { type: String, required: true,  },
+    email: { type: String, required: true, unique: true  },
     mobileNumber: { type: Number, required: true,  },
     weight: { type: Number, required: true,  },
     quantity: { type: Number, required: true,  },

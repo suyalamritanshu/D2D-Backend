@@ -8,6 +8,7 @@ router.post("/registerDealer", async (req, res) => {
   try {
     const newUser = await new User({
         name: req.body.name,
+        email: req.body.email,
         nature: req.body.nature,
         weight: req.body.weight,
         mobileNumber: req.body.mobileNumber,
@@ -32,7 +33,7 @@ router.post("/registerDealer", async (req, res) => {
 //login
 router.post("/loginDealer", async (req, res) => {
     try {
-      const user = await User.findOne({ name: req.body.name });
+      const user = await User.findOne({ email: req.body.email });
       !user && res.status(401).json("Wrong password or username!");
   
       const bytes = CryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);

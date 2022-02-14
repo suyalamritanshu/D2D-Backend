@@ -9,6 +9,7 @@ router.post("/registerDriver", async (req, res) => {
     const newUser = await new User({
         name: req.body.name,
         age: req.body.age,
+        email: req.body.email,
         truckCapacity: req.body.truckCapacity,
         mobileNumber: req.body.mobileNumber,
         truckumber: req.body.truckumber,
@@ -34,7 +35,7 @@ router.post("/registerDriver", async (req, res) => {
 //login
 router.post("/loginDriver", async (req, res) => {
     try {
-      const user = await User.findOne({ name: req.body.name });
+      const user = await User.findOne({ email: req.body.email });
       !user && res.status(401).json("Wrong password or username!");
   
       const bytes = CryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
