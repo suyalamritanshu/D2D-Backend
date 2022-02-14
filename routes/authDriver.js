@@ -63,6 +63,18 @@ router.post("/loginDriver", async (req, res) => {
     }
   });
 
+  //get all drivers
+
+  router.get("/allDrivers", async (req, res) => {
+      try {
+        const user = await User.find();
+        res.status(200).json(user);
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    
+  });
+
   //get all drivers for a particular route
 
   router.get("/", verify, async (req, res) => {
