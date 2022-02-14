@@ -2,6 +2,7 @@ const router = require("express").Router();
 const User = require("../models/driver");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
+const verify = require("../verifyToken");
 
 //Register
 router.post("/registerDriver", async (req, res) => {
@@ -62,13 +63,34 @@ router.post("/loginDriver", async (req, res) => {
     }
   });
 
+  //get all drivers for a particular route
 
-  router.get("/:fromCity1/:fromCity2/:fromCity3", async (req, res) => {
+  router.get("/", verify, async (req, res) => {
+    const typeQuery = req.query.fromCity1;
+    const genreQuery = req.query.fromCity2;
+    const genreQuery1 = req.query.fromCity3;
+
+    let user = [];
     try {
-      const user = await User.findA({
-        members: { $all: [req.params.fromCity1, req.params.fromCity2, req.params.fromCity3 ] },
-      });
-      res.status(200).json(user)
+      if (typeQuery) {
+        if (genreQuery) {
+          if(genreQuery1){
+          user = await User.aggregate([
+            { $sample: { size: 10 } },
+            { $match: { fromCity1: typeQuery, fromCity2: genreQuery, fromCity3: genreQuery1 } },
+            
+          ]);
+        }
+        } else {
+          user = await User.aggregate([
+            { $sample: { size: 10 } },
+            { $match: { fromCity1: typeQuery } },
+          ]);
+        }
+      } else {
+        user = await User.aggregate([{ $sample: { size: 10 } }]);
+      }
+      res.status(200).json(user);
     } catch (err) {
       res.status(500).json(err);
     }

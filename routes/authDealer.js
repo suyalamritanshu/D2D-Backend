@@ -2,6 +2,7 @@ const router = require("express").Router();
 const User = require("../models/dealer");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
+const verify = require("../verifyToken");
 
 //Register
 router.post("/registerDealer", async (req, res) => {
@@ -55,14 +56,31 @@ router.post("/loginDealer", async (req, res) => {
     }
   });
   
-  router.get("/:city", async (req, res) => {
-    try {
-      const user = await User.findOne({
-        members: { $all: [req.params.city ] },
-      });
-      res.status(200).json(user)
-    } catch (err) {
-      res.status(500).json(err);
+//get all dealers for a particular route
+
+router.get("/", verify, async (req, res) => {
+  const typeQuery = req.query.state;
+  const genreQuery = req.query.city;
+  let user = [];
+  try {
+    if (typeQuery) {
+      if (genreQuery) {
+        user = await User.aggregate([
+          { $sample: { size: 10 } },
+          { $match: { state: typeQuery, city: genreQuery } },
+        ]);
+      } else {
+        user = await User.aggregate([
+          { $sample: { size: 10 } },
+          { $match: { state: typeQuery } },
+        ]);
+      }
+    } else {
+      user = await User.aggregate([{ $sample: { size: 10 } }]);
     }
-  });
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 module.exports = router;
