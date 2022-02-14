@@ -65,7 +65,7 @@ router.post("/loginDriver", async (req, res) => {
 
   router.get("/:fromCity1/:fromCity2/:fromCity3", async (req, res) => {
     try {
-      const user = await User.findOne({
+      const user = await User.findA({
         members: { $all: [req.params.fromCity1, req.params.fromCity2, req.params.fromCity3 ] },
       });
       res.status(200).json(user)
