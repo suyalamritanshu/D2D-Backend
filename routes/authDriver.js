@@ -46,8 +46,10 @@ router.post("/loginDriver", async (req, res) => {
       const bytes = CryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
       const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
   
-      originalPassword !== req.body.password &&
-        res.status(401).json("Wrong password or username!");
+      if(originalPassword !== req.body.password){
+       
+        return res.status(401).json("Wrong password");
+      }
   
       const accessToken = jwt.sign(
         { id: user._id },
@@ -59,7 +61,7 @@ router.post("/loginDriver", async (req, res) => {
   
       res.status(200).json({ ...info, accessToken });
     } catch (err) {
-      res.status(500).json(err);
+      res.status(401).json('Wrong password');
     }
   });
 
