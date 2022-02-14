@@ -12,7 +12,7 @@
 
 7) Get data of the drivers that are available for a particular route - 
 
- /api/authDriver?fromCity1=Moradabad&fromCity2=Kanpur&fromCity3=Solan
+      /api/authDriver?fromCity1=Moradabad&fromCity2=Kanpur&fromCity3=Solan
 
 8) Get data of the dealers that are available for a particular route (state and city) - 
  /api/authDealer?state=UP&city=Kanpur
